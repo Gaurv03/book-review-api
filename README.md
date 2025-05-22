@@ -75,6 +75,59 @@ src/
 
 ---
 
+
+
+## 🛠️ Schema Design
+
+### **Users**
+
+| Field         | Type     | Description              |
+| ------------- | -------- | ------------------------ |
+| `_id`       | ObjectId | Unique user ID           |
+| `firstName` | String   | User's first name        |
+| `lastName`  | String   | User's last name         |
+| `email`     | String   | Unique, required         |
+| `password`  | String   | Hashed password          |
+| `createdAt` | Date     | Auto-generated timestamp |
+| `updatedAt` | Date     | Auto-updated timestamp   |
+
+### **Books**
+
+
+
+| Field         | Type     | Description                        |
+| ------------- | -------- | ---------------------------------- |
+| `_id`       | ObjectId | Unique book ID                     |
+| `title`     | String   | Required                           |
+| `author`    | String   | Required                           |
+| `country`   | String   | Country of origin                  |
+| `year`      | Number   | Year of publication                |
+| `language`  | String   | Language (e.g., English)           |
+| `pages`     | Number   | Total number of pages              |
+| `genre`     | String   | Genre of the book                  |
+| `imageLink` | String   | URL to cover image                 |
+| `link`      | String   | URL to Wikipedia or reference link |
+| `createdAt` | Date     | Auto-generated timestamp           |
+| `updatedAt` | Date     | Auto-updated timestamp             |
+
+### **Reviews**
+
+| Field         | Type     | Description                                      |
+| ------------- | -------- | ------------------------------------------------ |
+| `_id`       | ObjectId | Unique review ID                                 |
+| `user`      | ObjectId | Reference to the reviewing `<span>User</span>` |
+| `book`      | ObjectId | Reference to the reviewed `<span>Book</span>`  |
+| `rating`    | Number   | 1 to 5                                           |
+| `comment`   | String   | Optional comment                                 |
+| `createdAt` | Date     | Auto-generated timestamp                         |
+| `updatedAt` | Date     | Auto-updated timestamp                           |
+
+> 🔒 **Unique Constraint:** One review per user per book.
+
+---
+
+
+
 ## 🧰 Testing with Postman
 
 You can import the full Postman collection from:

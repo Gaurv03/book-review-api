@@ -7,7 +7,6 @@ const statusCode = new statusCodes();
 class ReviewController {
 
     public async submitReview(req: Request, res: Response) {
-        console.log("Service")
         try {
             const data = await reviewService.submitReview(req, res);
             return statusCode.success(res, "Request Acknowledged", data)
