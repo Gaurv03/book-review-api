@@ -1,10 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from "./config/database";
-// import router from './routes/index';
+import router from './routes/index';
 import cookieParser from "cookie-parser"
 import cors from "cors"
-import http from 'http'
 
 dotenv.config({})
 const app = express()
@@ -17,10 +16,10 @@ const corsOption = {
 app.use(cors(corsOption))
 app.use(cookieParser());
 app.use(express.json());
-// app.use('/api', router);
 app.get('/', (_req, res) => {
     res.send('Hello TypeScript + Node.js!');
 });
+app.use('/api', router);
 app.listen(PORT, () => {
     connectDB().then(() => {
         console.log(
