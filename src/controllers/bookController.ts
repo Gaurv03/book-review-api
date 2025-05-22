@@ -6,7 +6,6 @@ const statusCode = new statusCodes();
 class BookController {
 
     public async add(req: Request, res: Response) {
-        console.log("Service")
         try {
             const data = await bookService.add(req, res);
             return statusCode.success(res, "Request Acknowledged", data)
@@ -34,7 +33,6 @@ class BookController {
     }
 
     public async searchBook(req: Request, res: Response) {
-        console.log("Controller")
         try {
             const data = await bookService.searchBook(req, res);
             return statusCode.success(res, "Request Acknowledged", data)

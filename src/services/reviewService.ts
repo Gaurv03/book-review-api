@@ -44,7 +44,6 @@ class ReviewsService {
 
             // Find review by ID
             const review = await ReviewModel.findById(reviewId);
-            console.log(review)
             if (!review) {
                 return statusCode.notFound(res, 'Review not found');
             }

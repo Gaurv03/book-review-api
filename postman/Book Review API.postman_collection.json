@@ -1,0 +1,580 @@
+{
+	"info": {
+		"_postman_id": "fd875f4d-ab4d-4afe-a135-bcbe47a41eb6",
+		"name": "Book Review API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26500064",
+		"_collection_link": "https://cloudy-star-478637.postman.co/workspace/e8622592-195e-4bc0-89bc-a30f8ad3c373/collection/26500064-fd875f4d-ab4d-4afe-a135-bcbe47a41eb6?action=share&source=collection_link&creator=26500064"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\":\"Diana\",\r\n    \"lastName\" : \"Princess\",\r\n    \"email\":\"diana@gmail.com\",\r\n    \"password\" : \"test@123\",\r\n    \"confirmPassword\":\"test@123\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const rawCookies = pm.response.headers.get('Set-Cookie');\r",
+									"\r",
+									"if (rawCookies) {\r",
+									"    const tokenMatch = rawCookies.match(/token=([^;]+)/);\r",
+									"    if (tokenMatch) {\r",
+									"        const token = tokenMatch[1];\r",
+									"        pm.collectionVariables.set('authToken', token);\r",
+									"        console.log('Token saved:', token);\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n    \"email\":\"barry@gmail.com\",\r\n    \"password\" : \"test@123\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.unset('authToken');\r",
+									"console.log('Auth token cleared');"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const token = pm.collectionVariables.get('authToken');\r",
+									"if (token) {\r",
+									"    pm.request.headers.add({ key: 'Cookie', value: `token=${token}` });\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODJlYjA3NDA1NGI3MGE4NzVlNDViYTMiLCJmaXJzdE5hbWUiOiJCcnVjZSIsImxhc3ROYW1lIjoiV2F5bmUiLCJpYXQiOjE3NDc4OTA2MDEsImV4cCI6MTc0Nzk3NzAwMX0.Oi_dxLZdY-hMsdmMNKeL6Qpzb33T99nbu3SkrXzjdpM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Add Books",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const token = pm.collectionVariables.get('authToken');\r",
+									"if (token) {\r",
+									"    pm.request.headers.add({ key: 'Cookie', value: `token=${token}` });\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODJlYjA3NDA1NGI3MGE4NzVlNDViYTMiLCJmaXJzdE5hbWUiOiJCcnVjZSIsImxhc3ROYW1lIjoiV2F5bmUiLCJpYXQiOjE3NDc4OTA2MDEsImV4cCI6MTc0Nzk3NzAwMX0.Oi_dxLZdY-hMsdmMNKeL6Qpzb33T99nbu3SkrXzjdpM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "  { \r\n  \"author\": \"Neal Caffery\",\r\n    \"country\": \"Sumer and Akkadian Empire\",\r\n    \"imageLink\": \"https://images.unsplash.com/photo-1476275466078-4007374efbbe?q=80&w=1429&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\r\n    \"language\": \"Akkadian\",\r\n    \"link\": \"https://en.wikipedia.org/wiki/Epic_of_Gilgamesh\\n\",\r\n    \"pages\": 168,\r\n    \"title\": \"The Epic Of Tales of Tails\",\r\n    \"year\": 1800,\r\n    \"genre\" : \"Fiction\"\r\n\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/books/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/books?author=dante&genre=poetry",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books"
+							],
+							"query": [
+								{
+									"key": "author",
+									"value": "dante"
+								},
+								{
+									"key": "genre",
+									"value": "poetry"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookById",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/books/682ed0bcb15b46344b859e7e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								"682ed0bcb15b46344b859e7e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Book",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/books/search?q=fa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "fa"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"const token = pm.collectionVariables.get('authToken');\r",
+							"if (token) {\r",
+							"    pm.request.headers.add({ key: 'Cookie', value: `token=${token}` });\r",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Submit Review",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const token = pm.collectionVariables.get('authToken');\r",
+									"if (token) {\r",
+									"    pm.request.headers.add({ key: 'Cookie', value: `token=${token}` });\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\" :3,\r\n    \"comment\" : \"Love it!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/books/682ecfd8919ff6ba977482c6/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								"682ecfd8919ff6ba977482c6",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const token = pm.collectionVariables.get('authToken');\r",
+									"if (token) {\r",
+									"    pm.request.headers.add({ key: 'Cookie', value: `token=${token}` });\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\" :3.5,\r\n    \"comment\" : \"Beautifully written!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/review/682f1d851d03d23e96fc84bd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"review",
+								"682f1d851d03d23e96fc84bd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const token = pm.collectionVariables.get('authToken');\r",
+									"if (token) {\r",
+									"    pm.request.headers.add({ key: 'Cookie', value: `token=${token}` });\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\" :5,\r\n    \"comment\" : \"Love it!\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/review/682f1d851d03d23e96fc84bd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"review",
+								"682f1d851d03d23e96fc84bd"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"const token = pm.collectionVariables.get('authToken');\r",
+							"if (token) {\r",
+							"    pm.request.headers.add({ key: 'Cookie', value: `token=${token}` });\r",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Test API",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"const token = pm.collectionVariables.get('authToken');\r",
+					"if (token) {\r",
+					"    pm.request.headers.add({ key: 'Cookie', value: `token=${token}` });\r",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"const rawCookies = pm.response.headers.get('Set-Cookie');\r",
+					"\r",
+					"if (rawCookies) {\r",
+					"    const tokenMatch = rawCookies.match(/token=([^;]+)/);\r",
+					"    if (tokenMatch) {\r",
+					"        const token = tokenMatch[1];\r",
+					"        pm.collectionVariables.set('authToken', token);\r",
+					"        console.log('Token saved:', token);\r",
+					"    }\r",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": ""
+		}
+	]
+}

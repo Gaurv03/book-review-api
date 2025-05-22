@@ -1,6 +1,6 @@
 # 📚 Book Review API
 
-A RESTful API built with **Node.js**, **TypeScript**, **Express**, and **MongoDB** for managing books and user-submitted reviews. Includes authentication, Swagger docs, filtering, pagination, and search functionality.
+A RESTful API built with **Node.js**, **TypeScript**, **Express**, and **MongoDB** for managing books and user-submitted reviews. Includes authentication, filtering, pagination, and search functionality.
 
 ---
 
@@ -12,7 +12,6 @@ A RESTful API built with **Node.js**, **TypeScript**, **Express**, and **MongoDB
 * Average rating per book
 * Fuzzy search by title or author
 * JWT-based auth with HTTP-only cookies
-* API docs via Swagger
 
 ---
 
@@ -22,7 +21,6 @@ A RESTful API built with **Node.js**, **TypeScript**, **Express**, and **MongoDB
 * TypeScript
 * MongoDB + Mongoose
 * JWT + Cookies
-* Swagger (OpenAPI)
 * Postman for testing
 
 ---
@@ -43,8 +41,6 @@ npm install
 ```
 
 ### 3. Run the app
-
-#### In development:
 
 ```bash
 npm run start
